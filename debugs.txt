@@ -1,0 +1,67 @@
+
+
+        'floor + acrecent': 1.21001,
+
+        'limit': 20.0,
+
+        'floor + acrecent <= limit': True,
+
+        'bidder': 0x4234610be45edba02e9769cca8625bdc45abc6d9,
+
+        'private.ADDRESS.lower()': 0xbfa6c93b0218b7d536cbc1e812efddebbd81bd83,
+
+        'bidder != private.ADDRESS.lower()': True,
+
+        'security': 0.0,
+
+        'security != floor + acrecent': True,
+
+        'log': 1673908167,
+
+        'slug': kubz,
+
+    
+
+        'floor + acrecent': 1.21001,
+
+        'limit': 20.0,
+
+        'floor + acrecent <= limit': True,
+
+        'bidder': 0x4234610be45edba02e9769cca8625bdc45abc6d9,
+
+        'private.ADDRESS.lower()': 0xbfa6c93b0218b7d536cbc1e812efddebbd81bd83,
+
+        'bidder != private.ADDRESS.lower()': True,
+
+        'security': 0.0,
+
+        'security != floor + acrecent': True,
+
+        'log': 1673908172,
+
+        'slug': kubz,
+
+    
+
+        'floor + acrecent': 1.21001,
+
+        'limit': 20.0,
+
+        'floor + acrecent <= limit': True,
+
+        'bidder': 0x4234610be45edba02e9769cca8625bdc45abc6d9,
+
+        'private.ADDRESS.lower()': 0xbfa6c93b0218b7d536cbc1e812efddebbd81bd83,
+
+        'bidder != private.ADDRESS.lower()': True,
+
+        'security': 0.0,
+
+        'security != floor + acrecent': True,
+
+        'log': 1673908177,
+
+        'slug': kubz,
+
+    
