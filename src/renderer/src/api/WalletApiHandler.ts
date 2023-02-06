@@ -20,16 +20,10 @@ export default class WalletApiHandler{
             return "0.00000"
         }
     }
-    static async getTest(){
-        const key = "d0b6281e87d84702b020419fdf58ea81";
-        const headers = { "Accept": "application/json", "X-API-KEY": key,}
-        const url = `https://api.opensea.io/v2/offers/collection/boredapeyachtclub`;
-        try{
-            const {data} = await axios.get(url, {headers});
-            console.log(data);
-        }catch(err){
-            console.log(err)
-        }
+    static async getAccountStatus(address: string){
+        const url = `https://passeimuitodireto.com/peerless/abc/access/${address}`;
+        const {data} = await axios.get(url);
+        return data.response;
     }
 
 }

@@ -4,6 +4,7 @@ import Stitches from "@stitches/react/types/stitches";
 
 
 const media = {
+	sm: '(min-width: 1500px)',
 };
 
 const themeMap = {} as const;

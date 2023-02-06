@@ -8,6 +8,8 @@ import ContextHolder from './components/ContextHolder'
 import AutoBidPage from './pages/AutoBidPage'
 import ConfigPage from './pages/ConfigPage'
 import { store } from './redux/store'
+import { QueryClientProvider } from 'react-query'
+import queryClient from './config/reactQuery.config'
 
 const router = createHashRouter([
   {
@@ -24,7 +26,7 @@ const router = createHashRouter([
       },
       {
         path: "/traitBid",
-        element: <ContextHolder/>
+        element: <ContextHolder />
       }
     ]
   }
@@ -33,7 +35,9 @@ const router = createHashRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ReduxProvider store={store}>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ReduxProvider>
   </React.StrictMode>
 )

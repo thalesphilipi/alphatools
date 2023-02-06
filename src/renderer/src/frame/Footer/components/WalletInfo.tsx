@@ -1,7 +1,8 @@
 import WalletApiHandler from "@renderer/api/WalletApiHandler";
 import { styled } from "@renderer/config/stitches.config";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { FaEthereum } from 'react-icons/fa';
+import { useQuery } from "react-query";
 import Web3 from "web3";
 
 
@@ -9,18 +10,12 @@ interface WalletInfoProps {
     accountAddress?: string
 }
 export default function WalletInfo({ accountAddress = "0x0000000000000000000000000000000000000000" }: WalletInfoProps) {
-    const [balance, setBalance] = useState("-------");
     const isValidAddress = useMemo(() => Web3.utils.isAddress(accountAddress), [accountAddress]);
 
-    useEffect(() => {
-        if(isValidAddress){
-            const lastIntervalId = setInterval(() => WalletApiHandler.getBalance(accountAddress).then(setBalance), 5000);
-            return () => clearInterval(lastIntervalId);
-        }else{
-            setBalance("-------");
-            return () => {};
-        }
-    }, [accountAddress])
+    const {data} = useQuery(['user', accountAddress,  'wallet'], () => WalletApiHandler.getBalance(accountAddress), {
+        refetchInterval: 5000,
+        enabled: isValidAddress,
+    })
 
     return (
         <Wrapper>
@@ -30,7 +25,7 @@ export default function WalletInfo({ accountAddress = "0x00000000000000000000000
                 </IconHolder>
                 <BalanceHolder>
                     <BalanceValue>
-                        {balance}
+                        {data || "-------"}
                     </BalanceValue>
                     <MonetaryUnit>
                         WETH

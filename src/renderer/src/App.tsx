@@ -1,13 +1,12 @@
 
 import { Outlet } from "react-router-dom";
+import "./assets/fonts/fonts.css";
 import SquareFrame from "./components/SquareFrame";
 import { globalCss, styled } from "./config/stitches.config";
 import Footer from "./frame/Footer";
+import SideScreen from "./frame/SideScreen";
 import WindowTab from "./frame/WindowTab";
 import BotService from "./services/BotService";
-import "./assets/fonts/fonts.css"
-import WalletApiHandler from "./api/WalletApiHandler";
-import SideScreen from "./frame/SideScreen";
 
 const electron = require('electron')
 
@@ -18,13 +17,15 @@ electron.ipcRenderer.on("tryClose", _ => {
 const globalStyle = globalCss({
 	"*:focus": {
 		outline: "none",
+	},
+	"*": {
+		border: '0',
 	}
 })
 
 function App(): JSX.Element {
 	globalStyle();
 
-	WalletApiHandler.getTest();
 	return (
 		<Window>
 			<WindowTab />
