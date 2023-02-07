@@ -1,4 +1,5 @@
-import { styled } from "@renderer/config/stitches.config"
+import { keyframes, styled } from "@renderer/config/stitches.config"
+import { BiLoader } from "react-icons/bi"
 
 
 
@@ -7,20 +8,23 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     divStyle?: React.CSSProperties,
     isError?: boolean,
     register?: any,
+    isLoading?: boolean
 }
 
-export default function InputField({ label, divStyle, register, isError, ...props}: InputProps) {
+export default function InputField({ label, divStyle, register, isError, isLoading, ...props}: InputProps) {
 
     return (
         <Wrapper style={divStyle}>
             <Label>{label}</Label>
             <Input isError={isError} {...register} readonly={props.readOnly} spellCheck={false} {...props}/>
+            <LoadIcon isLoading={isLoading}/>
         </Wrapper>
     )
 }
 
 
 const Wrapper = styled('div', {
+    position: "relative",
     borderRadius: 5,
     background: '#2C3438',
     height: 36,
@@ -81,4 +85,29 @@ const Input = styled('input', {
             }
         }
     }
+})
+const rotateAnimation = keyframes({
+	'from':{
+		transform: 'rotate(0)'
+	},
+	'to': {
+		transform: 'rotate(360deg)'
+	}
+})
+const LoadIcon = styled(BiLoader, {
+    position: "absolute",
+    display: 'none',
+    color: "#909599AA",
+    fontSize: 11,
+    top: 1,
+    left: 1,
+    animation: `${rotateAnimation} 2s linear infinite`,
+    variants: {
+        isLoading: {
+            true: {
+                display: 'initial'
+            }
+        }
+    }
+    
 })

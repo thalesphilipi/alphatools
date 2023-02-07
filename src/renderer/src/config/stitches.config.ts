@@ -25,7 +25,7 @@ const utils: Utils = {
 }
 
 
-export const { styled, reset, config, globalCss } = createStitches({
+export const { styled, reset, config, globalCss, keyframes } = createStitches({
 	theme,
 	media,
 	utils,

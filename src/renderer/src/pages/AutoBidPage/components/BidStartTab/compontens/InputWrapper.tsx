@@ -35,7 +35,7 @@ export default function InputWrapper() {
 		});
 	const dispatch = useDispatch();
 	const [debouncedSlug, isDebouncing] = useDebounce(watch('slug'), 740);
-	const { isError, isFetching } = useQuery<SlugData, Error>(['autoBid', debouncedSlug], () => OpenSeaApiHandler.getSlugData(debouncedSlug),
+	const { isError, isFetching, isLoading } = useQuery<SlugData, Error>(['autoBid', debouncedSlug], () => OpenSeaApiHandler.getSlugData(debouncedSlug),
 		{
 			enabled: !!debouncedSlug,
 			retry: false,
@@ -45,12 +45,13 @@ export default function InputWrapper() {
 				setStartBid(data.startBid);
 			},
 			onError() {
-				setError('slug', { type: 'invalidSlug' })
+				setError('slug', { type: 'invalidSlug' });
+				
 			}
 		});
 
 	useEffect(() => clearErrors('slug'), [isDebouncing])
-
+	
 	function onSubmit(data: FormInputs) {
 		if (isFetching || isDebouncing) return;
 		if (isError) setError('slug', { type: 'invalidSlug' });
@@ -78,13 +79,14 @@ export default function InputWrapper() {
 				divStyle={{ gridColumn: '3/5' }}
 				label='Price Limit'
 				type={'number'}
-				min={0}
+				min={startBid + 0.0001}
 				step={0.0001}
-				register={register('priceLimit', { required: true, min: 0 })}
+				register={register('priceLimit', { required: true, min: startBid + 0.0001})}
 				isError={!!errors.priceLimit}
+				isLoading={isLoading}
 			/>
-			<InputField label='Floor Price' type={'number'} value={floorPrice} readOnly />
-			<InputField label='Start Bid' type={'number'} value={startBid} readOnly />
+			<InputField label='Floor Price' type={'number'} value={floorPrice} isLoading={isLoading} readOnly />
+			<InputField label='Start Bid' type={'number'} value={startBid} isLoading={isLoading} readOnly />
 			<InputField
 				label='Percent'
 				type={'number'}
