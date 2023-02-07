@@ -3,11 +3,7 @@ import axios from "axios";
 
 const instance = axios.create();
 
-function min(input) {
-    if (toString.call(input) !== "[object Array]")  
-      return false;
- return Math.min.apply(null, input);
-   }
+
 
 export default class OpenSeaApiHandler {
 

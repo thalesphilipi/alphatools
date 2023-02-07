@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { InfoTask, Task } from "@renderer/interfaces/AutoBidInterfaces";
+import { createSlice } from "@reduxjs/toolkit";
+import { InfoTask } from "@renderer/interfaces/AutoBidInterfaces";
 
 
 interface InitialStateType {
