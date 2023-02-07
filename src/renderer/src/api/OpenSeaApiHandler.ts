@@ -1,7 +1,10 @@
 import { SlugData } from "@renderer/interfaces/AutoBidInterfaces";
 import axios from "axios";
 
-const instance = axios.create();
+const instance = axios.create({
+    headers: { "Accept": "application/json", "X-API-KEY": "d0b6281e87d84702b020419fdf58ea81", },
+    baseURL: "https://api.opensea.io",
+});
 
 
 
@@ -9,12 +12,8 @@ export default class OpenSeaApiHandler {
 
 
     static async getFloorPrice(slug: string) {
-
-        const key = "d0b6281e87d84702b020419fdf58ea81";
-        const headers = { "Accept": "application/json", "X-API-KEY": key, }
-        const url = `https://api.opensea.io/api/v1/collection/${slug}`;
-        const response = await instance.get(url, { headers });
-        const { data } = response;
+        const url = `api/v1/collection/${slug}`;
+        const { data } = await instance.get(url);
         return data.collection.stats.floor_price;
 
     }
@@ -22,13 +21,11 @@ export default class OpenSeaApiHandler {
     static async getStartBid(slug: string){
         const etherConstant = (10) ** -18;
 
-        const key = "d0b6281e87d84702b020419fdf58ea81";
-        const headers = { "Accept": "application/json", "X-API-KEY": key, }
-        const url = `https://api.opensea.io/v2/offers/collection/${slug}?order_by=eth_price&order_direction=asc`;
-        const response = await instance.get(url, { headers });
-        const { data } = response;
+        const url = `v2/offers/collection/${slug}?order_by=eth_price&order_direction=asc`;
+        const { data } = await instance.get(url);
+        
         const value = (data.offers[0].protocol_data.parameters.offer[0].startAmount) * etherConstant;
-        return Number((value + 0.0001).toLocaleString('en', {maximumFractionDigits: 4}))
+        return Number((value + 0.0001).toFixed(4))
 
     }
 
