@@ -5,96 +5,94 @@ import useDebounce from "@renderer/hooks/useDebounce";
 import { InfoTask, SlugData } from "@renderer/interfaces/AutoBidInterfaces";
 import { addTask } from "@renderer/redux/autoBidCreationSlice";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { HiPlusSm } from "react-icons/hi";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import InputField from "./InputField";
 
-
+type FormInputs = {
+	slug: string,
+	priceLimit: number,
+	percent: number,
+}
 export default function InputWrapper() {
-
-	const [priceLimit, setPriceLimit] = useState('0');
-	const [percent, setPercent] = useState('0');
-	const [slug, setSlug] = useState('');
 	const [floorPrice, setFloorPrice] = useState(0);
 	const [startBid, setStartBid] = useState(0);
-	const [isFieldError, setIsFieldError] = useState(false);
-	const [isSlugError, setIsSlugError] = useState(false);
+	const { register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+		setValue,
+		setError,
+		clearErrors,
+		reset } = useForm<FormInputs>({
+			defaultValues: {
+				slug: '',
+				priceLimit: 0,
+				percent: 0
+			},
+		});
 	const dispatch = useDispatch();
-	const [debouncedSlug, isDebouncing] = useDebounce(slug, 740);
-	const { data, isLoading, isFetching, isSuccess } = useQuery<SlugData, Error>(['autoBid', debouncedSlug], () => OpenSeaApiHandler.getSlugData(debouncedSlug),
+	const [debouncedSlug, isDebouncing] = useDebounce(watch('slug'), 740);
+	const { isError, isFetching } = useQuery<SlugData, Error>(['autoBid', debouncedSlug], () => OpenSeaApiHandler.getSlugData(debouncedSlug),
 		{
 			enabled: !!debouncedSlug,
 			retry: false,
-			onError: () => { if (!isDebouncing) setIsSlugError(true) },
-			onSuccess: (data) => {
-				if (slug) {
-					setPriceLimit((data.startBid + 0.0001).toString() || "");
-					setStartBid(data.startBid);
-					setFloorPrice(data.floorPrice);
-				}
+			onSuccess(data) {
+				setValue('priceLimit', data.startBid + 0.0001);
+				setFloorPrice(data.floorPrice);
+				setStartBid(data.startBid);
 			},
+			onError() {
+				setError('slug', { type: 'invalidSlug' })
+			}
 		});
-	useEffect(() => {
-		if (data && !isDebouncing) {
-			setPriceLimit((data.startBid + 0.0001).toString() || "");
-			setStartBid(data.startBid);
-			setFloorPrice(data.floorPrice);
-		}
-	}, [debouncedSlug, isDebouncing])
 
-	
-	useEffect(() => {
-		if (isSlugError) setIsSlugError(false);
-	}, [slug, isSuccess]);
+	useEffect(() => clearErrors('slug'), [isDebouncing])
 
-	useEffect(() => {
-		if (isFieldError) { setIsFieldError(false) }
-	}, [priceLimit, percent, slug])
-
-	function handleAddTask(e) {
-		e.preventDefault();
-		if (slug.trim().length <= 0 || priceLimit.trim().length <= 0) setIsFieldError(true);
-
-		else if ( !isLoading && !isSlugError && !isFieldError && !isDebouncing && data) {
-			const floorPrice = data.floorPrice;
-			const startBid = data.startBid;
-			const task: InfoTask = { slug, priceLimit: Number(priceLimit), percent: Number(percent) || 0, floorPrice, startBid };
+	function onSubmit(data: FormInputs) {
+		if (isFetching || isDebouncing) return;
+		if (isError) setError('slug', { type: 'invalidSlug' });
+		else {
+			const task: InfoTask = { ...data, floorPrice, startBid };
 			dispatch(addTask(task));
-			setPercent('0');
-			setSlug('');
-			setPriceLimit('');
-			setFloorPrice(0);
+			reset({
+				slug: '',
+				priceLimit: 0,
+				percent: 0
+			})
+			setFloorPrice(0)
 			setStartBid(0)
 		}
 	}
-
-
 	return (
-		<Wrapper onSubmit={handleAddTask} noValidate>
+		<Wrapper onSubmit={handleSubmit(onSubmit)} noValidate>
 			<InputField
 				divStyle={{ gridColumn: '1/3' }}
-				onChange={(e) => { setSlug(e.target.value); setIsFieldError(false) }}
-				isError={((isFieldError && slug.length <= 0) || isSlugError)}
-				value={slug}
-				label='Slug' />
+				label='Slug'
+				register={register('slug', { required: true })}
+				isError={!!errors.slug}
+			/>
 			<InputField
 				divStyle={{ gridColumn: '3/5' }}
-				onChange={(e) => { setPriceLimit(e.target.value); setIsFieldError(false) }}
-				isError={(isFieldError && priceLimit.length <= 0)}
-				type={'number'} step={'0.001'} min={(data?.startBid || 0) + 0.0001} lang={'nl'}
-				value={Number(priceLimit).toLocaleString('en', { maximumFractionDigits: 4 })}
 				label='Price Limit'
-			/>
-			<InputField label='Floor Price' value={floorPrice.toLocaleString(navigator.language, { maximumFractionDigits: 4 }) || ""} readOnly />
-			<InputField label='Start Bid' value={startBid.toLocaleString(navigator.language, { maximumFractionDigits: 4 }) || ""} readOnly />
-			<InputField
-				onChange={(e) => { setPercent(e.target.value); setIsFieldError(false) }}
 				type={'number'}
-				step={5}
 				min={0}
-				value={percent}
+				step={0.0001}
+				register={register('priceLimit', { required: true, min: 0 })}
+				isError={!!errors.priceLimit}
+			/>
+			<InputField label='Floor Price' type={'number'} value={floorPrice} readOnly />
+			<InputField label='Start Bid' type={'number'} value={startBid} readOnly />
+			<InputField
 				label='Percent'
+				type={'number'}
+				min={0}
+				step={5}
+				register={register('percent', { min: 0 })}
+				isError={!!errors.percent}
+
 			/>
 			<AddButton >
 				<HiPlusSm />

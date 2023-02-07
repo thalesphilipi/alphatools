@@ -6,14 +6,15 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string,
     divStyle?: React.CSSProperties,
     isError?: boolean,
+    register?: any,
 }
 
-export default function InputField({ label, isError, divStyle, ...props }: InputProps) {
+export default function InputField({ label, divStyle, register, isError, ...props}: InputProps) {
 
     return (
         <Wrapper style={divStyle}>
             <Label>{label}</Label>
-            <Input readonly={props.readOnly} spellCheck={false} isError={isError} {...props}/>
+            <Input isError={isError} {...register} readonly={props.readOnly} spellCheck={false} {...props}/>
         </Wrapper>
     )
 }
