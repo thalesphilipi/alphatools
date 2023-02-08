@@ -1,7 +1,7 @@
 import ButtonWrapper from "@renderer/components/ButtonWrapper";
 import { styled } from "@renderer/config/stitches.config";
-import { clearAddedTasks, selectAutoBidCreation } from "@renderer/redux/autoBidCreationSlice";
-import { createInstance } from "@renderer/redux/autoBidInstancesSlice";
+import { clearAddedTasks, selectAutoBidCreation } from "@renderer/redux/autoBid/autoBidCreationSlice";
+import { createInstance } from "@renderer/redux/autoBid/autoBidInstancesSlice";
 import { BsFillPlayFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import InputWrapper from "./compontens/InputWrapper";
