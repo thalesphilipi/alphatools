@@ -45,7 +45,7 @@ export default function InputWrapper() {
 				setStartBid(data.startBid);
 			},
 			onError() {
-				setError('slug', { type: 'invalidSlug' });
+				if(!isDebouncing) setError('slug', { type: 'invalidSlug' });
 				
 			}
 		});
@@ -83,10 +83,10 @@ export default function InputWrapper() {
 				step={0.0001}
 				register={register('priceLimit', { required: true, min: startBid + 0.0001})}
 				isError={!!errors.priceLimit}
-				isLoading={isLoading}
+				isLoading={isLoading && !isDebouncing}
 			/>
-			<InputField label='Floor Price' type={'number'} value={floorPrice} isLoading={isLoading} readOnly />
-			<InputField label='Start Bid' type={'number'} value={startBid} isLoading={isLoading} readOnly />
+			<InputField label='Floor Price' type={'number'} value={floorPrice} isLoading={isLoading && !isDebouncing} readOnly />
+			<InputField label='Start Bid' type={'number'} value={startBid} isLoading={isLoading && !isDebouncing} readOnly />
 			<InputField
 				label='Percent'
 				type={'number'}
