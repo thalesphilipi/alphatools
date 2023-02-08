@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { HiPlusSm } from "react-icons/hi";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
-import InputField from "./InputField";
+import InputField from "../../../../../components/inputs/InputField";
 
 type FormInputs = {
 	slug: string,
