@@ -4,8 +4,8 @@ import { clearAddedTasks, selectAutoBidCreation } from "@renderer/redux/autoBid/
 import { createInstance } from "@renderer/redux/autoBid/autoBidInstancesSlice";
 import { BsFillPlayFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import InputWrapper from "./compontens/InputWrapper";
-import SelectedTasks from "./compontens/SelectedTasks";
+import InputWrapper from "./components/InputWrapper";
+import SelectedTasks from "./components/SelectedTasks";
 
 export default function BidStartTab() {
 
