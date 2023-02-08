@@ -1,4 +1,4 @@
-import AnchorWrapper from "@renderer/components/AnchorWrapper"
+import AnchorWrapper from "@renderer/components/buttons/AnchorWrapper"
 import { styled } from "@renderer/config/stitches.config"
 import { IconType } from "react-icons/lib"
 import { NavLinkProps } from "react-router-dom"

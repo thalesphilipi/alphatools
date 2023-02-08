@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { QueryClientProvider } from 'react-query'
 import { Provider as ReduxProvider } from 'react-redux'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import './assets/index.css'
-import ContextHolder from './components/ContextHolder'
+import queryClient from './config/reactQuery.config'
 import AutoBidPage from './pages/AutoBidPage'
 import ConfigPage from './pages/ConfigPage'
+import TraitBidPage from './pages/TraitBidPage'
 import { store } from './redux/store'
-import { QueryClientProvider } from 'react-query'
-import queryClient from './config/reactQuery.config'
 
 const router = createHashRouter([
   {
@@ -26,7 +26,7 @@ const router = createHashRouter([
       },
       {
         path: "/traitBid",
-        element: <ContextHolder />
+        element: <TraitBidPage />
       }
     ]
   }

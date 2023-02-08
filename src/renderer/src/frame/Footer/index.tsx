@@ -1,4 +1,4 @@
-import SquareFrame from "@renderer/components/SquareFrame";
+import SquareFrame from "@renderer/components/frames/SquareFrame";
 import { styled } from "@renderer/config/stitches.config";
 import { selectUser } from "@renderer/redux/userSlice";
 import { useSelector } from "react-redux";

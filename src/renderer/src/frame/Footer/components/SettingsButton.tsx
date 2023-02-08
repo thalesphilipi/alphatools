@@ -1,4 +1,4 @@
-import AnchorWrapper from "@renderer/components/AnchorWrapper";
+import AnchorWrapper from "@renderer/components/buttons/AnchorWrapper";
 import { useState } from "react";
 import { styled } from "@renderer/config/stitches.config";
 import { IoMdSettings } from 'react-icons/io'

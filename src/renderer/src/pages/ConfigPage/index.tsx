@@ -4,7 +4,7 @@ import { RiKeyFill } from 'react-icons/ri';
 import ConfigContainer from "./components/ConfigContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { changeAddress, changeWallet, selectUser } from "@renderer/redux/userSlice";
-import ContextHolder from "@renderer/components/ContextHolder";
+import ContextHolder from "@renderer/components/frames/ContextHolder";
 
 export default function ConfigPage(){
     const dispatch = useDispatch();

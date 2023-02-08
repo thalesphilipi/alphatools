@@ -1,7 +1,7 @@
 
 import { Outlet } from "react-router-dom";
 import "./assets/fonts/fonts.css";
-import SquareFrame from "./components/SquareFrame";
+import SquareFrame from "./components/frames/SquareFrame";
 import { globalCss, styled } from "./config/stitches.config";
 import Footer from "./frame/Footer";
 import SideScreen from "./frame/SideScreen";

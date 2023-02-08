@@ -1,5 +1,5 @@
 import OpenSeaApiHandler from "@renderer/api/OpenSeaApiHandler";
-import ButtonWrapper from "@renderer/components/ButtonWrapper";
+import ButtonWrapper from "@renderer/components/buttons/ButtonWrapper";
 import { styled } from "@renderer/config/stitches.config";
 import useDebounce from "@renderer/hooks/useDebounce";
 import { InfoTask, SlugData } from "@renderer/interfaces/AutoBidInterfaces";

@@ -1,4 +1,4 @@
-import ButtonWrapper from "@renderer/components/ButtonWrapper";
+import ButtonWrapper from "@renderer/components/buttons/ButtonWrapper";
 import { styled } from "@renderer/config/stitches.config";
 import { removeTask, selectAutoBidCreation } from "@renderer/redux/autoBid/autoBidCreationSlice";
 import { useDispatch, useSelector } from "react-redux";

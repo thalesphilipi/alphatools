@@ -1,4 +1,4 @@
-import ButtonWrapper from "@renderer/components/ButtonWrapper"
+import ButtonWrapper from "@renderer/components/buttons/ButtonWrapper"
 import { styled } from "@renderer/config/stitches.config"
 import { AiFillGold, AiOutlineClockCircle } from "react-icons/ai"
 import { TiMediaPause } from "react-icons/ti"

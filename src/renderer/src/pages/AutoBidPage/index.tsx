@@ -1,4 +1,4 @@
-import ContextHolder from "@renderer/components/ContextHolder"
+import ContextHolder from "@renderer/components/frames/ContextHolder"
 import { styled } from "@renderer/config/stitches.config"
 import BidsContainer from "./components/BidsContainer"
 import BidStartTab from "./components/BidStartTab"
