@@ -11,14 +11,14 @@ const instance = axios.create({
 export default class OpenSeaApiHandler {
 
 
-    static async getFloorPrice(slug: string) {
+    static async getFloorPrice(slug: string): Promise<number>{
         const url = `api/v1/collection/${slug}`;
         const { data } = await instance.get(url);
         return data.collection.stats.floor_price;
 
     }
 
-    static async getStartBid(slug: string){
+    static async getStartBid(slug: string): Promise<number>{
         const etherConstant = (10) ** -18;
 
         const url = `v2/offers/collection/${slug}?order_by=eth_price&order_direction=asc`;
