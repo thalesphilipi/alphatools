@@ -34,26 +34,28 @@ export default function InputWrapper() {
 			},
 		});
 	const dispatch = useDispatch();
-	const [debouncedSlug, isDebouncing] = useDebounce(watch('slug'), 740);
-	const { isError, isFetching, isLoading } = useQuery<SlugData, Error>(['autoBid', debouncedSlug], () => OpenSeaApiHandler.getSlugData(debouncedSlug),
+	const [debouncedSlug, isDebouncing, resetDebouncedValue] = useDebounce(watch('slug'), 740);
+	const { data, isError, isLoading } = useQuery<SlugData, Error>(['autoBid', debouncedSlug], () => OpenSeaApiHandler.getSlugData(debouncedSlug),
 		{
 			enabled: !!debouncedSlug,
 			retry: false,
-			onSuccess(data) {
-				setValue('priceLimit', data.startBid + 0.0001);
-				setFloorPrice(data.floorPrice);
-				setStartBid(data.startBid);
-			},
 			onError() {
-				if(!isDebouncing) setError('slug', { type: 'invalidSlug' });
-				
+				if (!isDebouncing) setError('slug', { type: 'invalidSlug' });
 			}
 		});
 
+	useEffect(() => {
+		if (data && !isLoading) {
+			setValue('priceLimit', data.startBid + 0.0001);
+			setFloorPrice(data.floorPrice);
+			setStartBid(data.startBid);
+		}
+	}, [data, debouncedSlug])
+
 	useEffect(() => clearErrors('slug'), [isDebouncing])
-	
+
 	function onSubmit(data: FormInputs) {
-		if (isFetching || isDebouncing) return;
+		if (isLoading || isDebouncing) return;
 		if (isError) setError('slug', { type: 'invalidSlug' });
 		else {
 			const task: InfoTask = { ...data, floorPrice, startBid };
@@ -63,6 +65,7 @@ export default function InputWrapper() {
 				priceLimit: 0,
 				percent: 0
 			})
+			resetDebouncedValue();
 			setFloorPrice(0)
 			setStartBid(0)
 		}
@@ -81,7 +84,7 @@ export default function InputWrapper() {
 				type={'number'}
 				min={startBid + 0.0001}
 				step={0.0001}
-				register={register('priceLimit', { required: true, min: startBid + 0.0001})}
+				register={register('priceLimit', { required: true, min: startBid + 0.0001 })}
 				isError={!!errors.priceLimit}
 				isLoading={isLoading && !isDebouncing}
 			/>
