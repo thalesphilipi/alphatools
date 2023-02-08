@@ -1,7 +1,7 @@
 import ButtonWrapper from "@renderer/components/ButtonWrapper"
 import { styled } from "@renderer/config/stitches.config"
 import { Task } from "@renderer/interfaces/AutoBidInterfaces"
-import { deleteInstance, removeTaskFromInstance } from "@renderer/redux/autoBidInstancesSlice"
+import { deleteInstance, removeTaskFromInstance } from "@renderer/redux/autoBid/autoBidInstancesSlice"
 import { IoCloseOutline } from "react-icons/io5"
 import { useDispatch } from "react-redux"
 

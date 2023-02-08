@@ -7,7 +7,7 @@ import { BotInstanceInterface as BotInstanceType } from "@renderer/interfaces/Au
 import formatTime from "@renderer/utils/formatTime"
 import { useMemo, useState } from "react"
 import { useDispatch } from "react-redux"
-import { startInstance, stopInstance } from "@renderer/redux/autoBidInstancesSlice"
+import { startInstance, stopInstance } from "@renderer/redux/autoBid/autoBidInstancesSlice"
 import SettingsContainer from "./SettingsContainer"
 
 const zeros = (num) => String(num).padStart(2, '0');

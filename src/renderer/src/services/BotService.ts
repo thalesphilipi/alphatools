@@ -1,4 +1,4 @@
-import { setClosed } from "@renderer/redux/autoBidInstancesSlice";
+import { setClosed } from "@renderer/redux/autoBid/autoBidInstancesSlice";
 import { store } from "@renderer/redux/store";
 import childProcessType from "child_process";
 

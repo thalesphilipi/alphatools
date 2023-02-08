@@ -1,8 +1,8 @@
-import { styled } from "@renderer/config/stitches.config"
+import { styled } from "@renderer/config/stitches.config";
 import { BotInstanceInterface } from "@renderer/interfaces/AutoBidInterfaces";
-import { selectAutoBidInstances } from "@renderer/redux/autoBidInstancesSlice"
-import { useSelector } from "react-redux"
-import BotInstance from "./components/BotInstance"
+import { selectAutoBidInstances } from "@renderer/redux/autoBid/autoBidInstancesSlice";
+import { useSelector } from "react-redux";
+import BotInstance from "./components/BotInstance";
 
 export default function BidsContainer(){
     const botInstances: BotInstanceInterface[] = useSelector(selectAutoBidInstances).instances;
