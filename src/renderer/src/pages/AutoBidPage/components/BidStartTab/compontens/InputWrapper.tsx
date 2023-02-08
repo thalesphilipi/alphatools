@@ -4,7 +4,7 @@ import { styled } from "@renderer/config/stitches.config";
 import useDebounce from "@renderer/hooks/useDebounce";
 import { InfoTask, SlugData } from "@renderer/interfaces/AutoBidInterfaces";
 import { addTask } from "@renderer/redux/autoBidCreationSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiPlusSm } from "react-icons/hi";
 import { useQuery } from "react-query";
@@ -17,8 +17,11 @@ type FormInputs = {
 	percent: number,
 }
 export default function InputWrapper() {
+	const dispatch = useDispatch();
+
 	const [floorPrice, setFloorPrice] = useState(0);
 	const [startBid, setStartBid] = useState(0);
+
 	const { register,
 		handleSubmit,
 		watch,
@@ -26,45 +29,43 @@ export default function InputWrapper() {
 		setValue,
 		setError,
 		clearErrors,
-		reset } = useForm<FormInputs>({
+		resetField } = useForm<FormInputs>({
 			defaultValues: {
 				slug: '',
 				priceLimit: 0,
 				percent: 0
 			},
 		});
-	const dispatch = useDispatch();
+
 	const [debouncedSlug, isDebouncing, resetDebouncedValue] = useDebounce(watch('slug'), 740);
-	const { data, isError, isLoading } = useQuery<SlugData, Error>(['autoBid', debouncedSlug], () => OpenSeaApiHandler.getSlugData(debouncedSlug),
+	const { data, isError, isLoading } = useQuery<SlugData>(['autoBid', debouncedSlug], () => OpenSeaApiHandler.getSlugData(debouncedSlug),
 		{
+			onError() { if (!isDebouncing) setError('slug', { type: 'invalidSlug' }) },
 			enabled: !!debouncedSlug,
 			retry: false,
-			onError() {
-				if (!isDebouncing) setError('slug', { type: 'invalidSlug' });
-			}
 		});
+
+	const priceLimitMin = useMemo(() => Number((startBid + 0.0001).toFixed(4)), [startBid])
 
 	useEffect(() => {
 		if (data && !isLoading) {
-			setValue('priceLimit', data.startBid + 0.0001);
+			setValue('priceLimit', Number((data.startBid + 0.0001).toFixed(4)));
 			setFloorPrice(data.floorPrice);
 			setStartBid(data.startBid);
 		}
 	}, [data, debouncedSlug])
 
 	useEffect(() => clearErrors('slug'), [isDebouncing])
-
 	function onSubmit(data: FormInputs) {
 		if (isLoading || isDebouncing) return;
 		if (isError) setError('slug', { type: 'invalidSlug' });
 		else {
 			const task: InfoTask = { ...data, floorPrice, startBid };
 			dispatch(addTask(task));
-			reset({
-				slug: '',
-				priceLimit: 0,
-				percent: 0
-			})
+			resetField('slug');
+			resetField('priceLimit');
+			resetField('percent');
+
 			resetDebouncedValue();
 			setFloorPrice(0)
 			setStartBid(0)
@@ -82,9 +83,9 @@ export default function InputWrapper() {
 				divStyle={{ gridColumn: '3/5' }}
 				label='Price Limit'
 				type={'number'}
-				min={startBid + 0.0001}
+				min={priceLimitMin}
 				step={0.0001}
-				register={register('priceLimit', { required: true, min: startBid + 0.0001 })}
+				register={register('priceLimit', { required: true, min: priceLimitMin })}
 				isError={!!errors.priceLimit}
 				isLoading={isLoading && !isDebouncing}
 			/>
