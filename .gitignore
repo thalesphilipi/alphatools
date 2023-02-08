@@ -2,3 +2,6 @@ node_modules
 dist
 out
 *.log*
+debugs_intern.txt
+debugs.txt
+resources/bot/private.py
