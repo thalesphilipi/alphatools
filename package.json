@@ -25,6 +25,21 @@
     "build:linux": "electron-vite build && electron-builder --linux --config",
     "publish": "electron-forge publish"
   },
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "albertalef",
+              "name": "alphatools"
+            }
+          }
+        }
+      ]
+    }
+  },
   "dependencies": {
     "@electron-toolkit/preload": "^1.0.3",
     "@electron-toolkit/utils": "^1.0.2",
@@ -53,6 +68,7 @@
     ]
   },
   "devDependencies": {
+    "@electron-forge/publisher-github": "^6.0.5",
     "@electron-toolkit/tsconfig": "^1.0.1",
     "@electron/notarize": "^1.2.3",
     "@types/node": "^18.11.18",
