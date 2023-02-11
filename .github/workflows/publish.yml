@@ -20,14 +20,41 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     - name: Install Dependencies
       run: npm install
-    - name: Publish
+
+    - name: Build
+      run: npm run build:win --if-present 
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with: 
+        name: unpacked
+        path: dist/win-unpacked
+
+    - name: Download Artifact
+      uses: actions/download-artifact@v2
+      with: 
+        name: unpacked
+
+    - name: Zip Artifact
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: unpacked-zip.zip
+
+    - name: Upload Artifact to Release
+      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npm run publish
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./unpacked-zip.zip
+        asset_name: unpacked-zip.zip
+        asset_content_type: application/zip
