@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/albertalef/alphatools/compare/v1.0.1...v1.0.2) (2023-02-15)
+
+
+### Bug Fixes
+
+* force release ([7661199](https://github.com/albertalef/alphatools/commit/7661199308b47442cd461d75f20ccda5f97359a7))
+
 ## [1.0.1](https://github.com/albertalef/alphatools/compare/v1.0.0...v1.0.1) (2023-02-15)
 
 
