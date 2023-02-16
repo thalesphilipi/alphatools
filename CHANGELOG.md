@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/albertalef/alphatools/compare/v1.0.0...v1.0.1) (2023-02-16)
+
+
+### Bug Fixes
+
+* remove needless dependency for secury ([14eaeb8](https://github.com/albertalef/alphatools/commit/14eaeb8f4aceb76b124b247841a761bfa0160918))
+
 # 1.0.0 (2023-02-15)
 
 
