@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/albertalef/alphatools/compare/v1.0.1...v1.1.0) (2023-02-18)
+
+
+### Bug Fixes
+
+* **AutoBidPage:** change the maximum fractional digits to 5 instead 4 ([03dfc7c](https://github.com/albertalef/alphatools/commit/03dfc7c2899161d02b7c888d32b88a6195fe3416))
+* **InputField.tsx:** disable user select label ([243b0fc](https://github.com/albertalef/alphatools/commit/243b0fc514ca79098842379ca057f1dfb4553687))
+
+
+### Features
+
+* add color when select text ([4de24c3](https://github.com/albertalef/alphatools/commit/4de24c37f406f3a1aa529b4cf11195f79814fef8))
+
 ## [1.0.1](https://github.com/albertalef/alphatools/compare/v1.0.0...v1.0.1) (2023-02-16)
 
 
