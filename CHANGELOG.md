@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/albertalef/alphatools/compare/v1.2.0...v1.2.1) (2023-02-27)
+
+
+### Bug Fixes
+
+* **BotInstance:** fix error: '>' not supported between instance of 'dict' and 'float' ([1f3a42d](https://github.com/albertalef/alphatools/commit/1f3a42d10ec3f74bd59ae58655118e533ca0ce0e))
+* **PrivateConfigService:** fix app using privates files from folders outside the app folder ([76c9cde](https://github.com/albertalef/alphatools/commit/76c9cdea1ff1a294196b8ecc737fcde19e9ef3a9))
+
 # [1.2.0](https://github.com/albertalef/alphatools/compare/v1.1.0...v1.2.0) (2023-02-26)
 
 
