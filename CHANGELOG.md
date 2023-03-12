@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/albertalef/alphatools/compare/v1.3.0...v1.3.1) (2023-03-12)
+
+
+### Bug Fixes
+
+* **BotInstance:** fix seaport version from 1.1v to 1.4 ([5ade071](https://github.com/albertalef/alphatools/commit/5ade071de989b261bbe77dea32fa2f7387e1e861))
+
 # [1.3.0](https://github.com/albertalef/alphatools/compare/v1.2.2...v1.3.0) (2023-03-08)
 
 
