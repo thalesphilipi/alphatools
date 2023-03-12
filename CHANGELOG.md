@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/AlphaToolsBot/alphatools/compare/v1.3.1...v1.3.2) (2023-03-12)
+
+
+### Bug Fixes
+
+* change repository url ([9f467a3](https://github.com/AlphaToolsBot/alphatools/commit/9f467a3e435b98991547fa947af4c27104c9912d))
+
 ## [1.3.1](https://github.com/albertalef/alphatools/compare/v1.3.0...v1.3.1) (2023-03-12)
 
 
