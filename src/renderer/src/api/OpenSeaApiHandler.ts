@@ -6,29 +6,25 @@ const instance = axios.create({
     baseURL: "https://api.opensea.io",
 });
 
-const etherConstant = Math.pow(10, 18);
-
 export default class OpenSeaApiHandler {
 
+    static etherConstant = Math.pow(10, 18);
 
     static async getFloorPrice(slug: string): Promise<number>{
         const url = `api/v1/collection/${slug}`;
         const { data } = await instance.get(url);
         return data.collection.stats.floor_price;
-
     }
 
 
     static async getStartBid(slug: string): Promise<number>{
         const url = `v2/offers/collection/${slug}?order_by=eth_price&order_direction=asc`;
-        const { data } = await instance.get(url);
-        const offersArray = data.offers.map( offer => {
-            const offerValue = Number(parseFloat(offer.protocol_data.parameters.offer[0].startAmount))
-            const offersQuantity = Number(offer.protocol_data.parameters.consideration[0].startAmount)
-            return ((offerValue/etherConstant)/offersQuantity)
-        })
-        const highestOffer = (offersArray[0] + 0.00001).toFixed(5)
-        return Number(highestOffer)
+        const { data } = await instance.get(url);         
+        const offerTotalValue = data.offers[0].protocol_data.parameters.offer[0].startAmount
+        const offerQuantity = data.offers[0].protocol_data.parameters.consideration[0].startAmount
+        const offerValue = ((offerTotalValue/this.etherConstant)/offerQuantity)
+        const highestOffer = ((offerValue) + 0.00001).toFixed(5)
+        return +highestOffer
     }
 
 
@@ -37,6 +33,5 @@ export default class OpenSeaApiHandler {
         const startBid = await this.getStartBid(slug);
         return {floorPrice, startBid};
     }
-
 
 }
