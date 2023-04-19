@@ -24,7 +24,7 @@ export default class OpenSeaApiHandler {
         const offerQuantity = data.offers[0].protocol_data.parameters.consideration[0].startAmount
         const offerValue = ((offerTotalValue/this.etherConstant)/offerQuantity)
         const highestOffer = ((offerValue) + 0.00001).toFixed(5)
-        return +highestOffer
+        return Number(highestOffer)
     }
 
 
