@@ -7,7 +7,6 @@ export default class WalletApiHandler{
         const weth = await Web3Contracts.getWethContract()
         const retrieveBalance = await weth.methods.balanceOf(address).call((error: Error, result: string) => {
             if (error) {
-                console.log(error);
                 return "0.00000";
             } else {
                 const balance = Web3Contracts.web3.utils.fromWei(result, 'ether');
